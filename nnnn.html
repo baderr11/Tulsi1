@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اكتشف - Discover</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #ffffff; /* تغيير لون الخلفية إلى الأبيض */
+            color: #121212; /* لون النص */
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .header .app-title {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .header .icons i {
+            color: #ffffff;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        headerr {
+            text-align: right;
+            padding: 7px;
+        }
+
+        .footerr i {
+            font-size: 1.5rem;
+            color: #4ecdc4;
+        }
+
+        .footerr i:hover {
+            color: #45b7aa;
+        }
+
+        main {
+            padding-bottom: 80px;
+        }
+
+        .search-bar {
+            color: #333333;
+            border: 1px solid #cccccc;
+            background-color: #f9f9f9;
+            border-radius: 20px;
+            padding: 5px 15px;
+            width: 100%;
+        }
+
+        .search-bar::placeholder {
+            color: #999999;
+        }
+
+        .grid-button {
+            background-color: #f1f1f1;
+            border: 1px solid #cccccc;
+            border-radius: 10px;
+            color: #121212;
+            text-align: center;
+            padding: 20px;
+            margin: 5px;
+        }
+
+        .grid-button i {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .grid-button:hover {
+            background-color: #e0e0e0;
+        }
+
+        .play-button {
+            font-size: 16px;
+        }
+
+        .progress-bar {
+            background-color: #cccccc;
+        }
+
+        .nav-icons i {
+            color: #ffffff;
+            margin: 0 10px;
+        }
+
+        .loading {
+            color: #121212;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .footerr {
+            background-color: white;
+            padding: 15px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .arrow-icon {
+            position: absolute;
+            right: 20px; /* يمكنك تعديل القيمة حسب الحاجة */
+            top: 10px;   /* تعديل الموضع من الأعلى إذا لزم الأمر */
+            font-size: 24px; /* حجم الأيقونة */
+            color: #282828;  /* لون الأيقونة */
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="home1.html" class="arrow-icon">→</a>
+        <div class="header d-flex flex-column align-items-center">
+            <div class="app-title">اكتشف</div>
+            <input type="text" class="search-bar mt-2" placeholder="ابحث هنا...">
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container my-3">
+        <div class="row">
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="grid-button">
+                    <a href="Tulsi4.html"><i class="fa fa-moon" aria-hidden="true"></i>
+                    <div>النوم</div></a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="grid-button">
+                    <a href="Tulsi3.html"><i class="fa fa-hand-holding-heart" aria-hidden="true"></i>
+                    <div>الاسترخاء</div></a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="grid-button">
+                    <i class="fa fa-smile" aria-hidden="true"></i>
+                    <div>السعادة</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="grid-button">
+                    <i class="fa fa-cogs" aria-hidden="true"></i>
+                    <div>الإنتاجية</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="grid-button">
+                    <i class="fa fa-briefcase" aria-hidden="true"></i>
+                    <div>بيئة العمل</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="grid-button">
+                    <i class="fa fa-user-alt" aria-hidden="true"></i>
+                    <div>المساعدة الذاتية</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="grid-button">
+                    <i class="fa fa-heartbeat" aria-hidden="true"></i>
+                    <div>إيقاعات</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="grid-button">
+                    <i class="fa fa-book" aria-hidden="true"></i>
+                    <div>ملخصات الكتب</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="grid-button">
+                    <i class="fa fa-sun" aria-hidden="true"></i>
+                    <div>تولسي</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="grid-button">
+                    <i class="fa fa-cloud" aria-hidden="true"></i>
+                    <div>روحانیات</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="grid-button">
+                    <a href="Tulsi6.html"><i class="fa fa-podcast" aria-hidden="true"></i>
+                    <div>بودكاست تولسي</div></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Font Awesome for icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script>
+        document.querySelector('.search-bar').addEventListener('input', function() {
+            let searchQuery = this.value.toLowerCase();
+            let gridButtons = document.querySelectorAll('.grid-button');
+
+            gridButtons.forEach(function(button) {
+                let buttonText = button.innerText.toLowerCase();
+
+                if (buttonText.includes(searchQuery)) {
+                    button.parentElement.style.display = 'block';
+                } else {
+                    button.parentElement.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <title>Tolsi</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #74CCCD, #aaa0ca);
+            font-family: 'Tajawal', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+        }
+        .title {
+            color: #FFFFFF;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #FFFFFF;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .option {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.3s ease;
+            width: 300px;
+            cursor: pointer;
+        }
+        .option.selected {
+            background-color: rgba(0, 201, 255, 0.5);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .option:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .option-text {
+            color: #FFFFFF;
+            font-size: 18px;
+        }
+        .icon {
+            width: 24px;
+            height: 24px;
+            background-color: #FFFFFF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+            margin-left: 10px;
+        }
+        .additional-info {
+            color: #FFFFFF;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .action-button {
+            background-color: rgb(0 0 0 / 30%);
+            border-radius: 8px;
+            border: 0px solid grey;
+            color: #ffff;
+            padding: 10px 20px;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+            font-size: 18px;
+            width: 300px;
+        }
+        .action-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .custom-input {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 18px;
+            color: #333;
+            width: 280px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+            margin-top: 10px;
+        }
+        .custom-input:focus {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            outline: none;
+        }
+
+        .footer-button {
+            border-radius: 25px;
+            border: 0px solid grey;
+            color: #FFFFFF;
+            padding: 15px 140px;
+            margin-top: 30px;
+            transition: background 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.2);
+            cursor: not-allowed;
+        }
+        
+        .footer-button.active {
+            background-color: rgba(0, 251, 255, 0.2);
+            cursor: pointer;
+        }
+
+        a {
+            font-style: normal;
+            text-decoration: none;
+            font-size: 16px;
+            margin-top: 20px;
+            pointer-events: none;
+        }
+
+        a:visited {
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">كيف تحب تبدأ يومك؟</h1>
+        <p class="subtitle">تقدري ترتبي أهدافك حسب المهم فالأهم عن طريق الضغط والسحب.</p>
+        
+        <div class="options">
+            <div class="option">
+                <span class="option-text">تحسين النوم</span>
+                <span class="icon">😴</span>
+            </div>
+            <div class="option">
+                <span class="option-text">تخفيف التوتر</span>
+                <span class="icon">🌿</span>
+            </div>
+            <div class="option">
+                <span class="option-text">تعزيز الإنتاجية</span>
+                <span class="icon">⚙️</span>
+            </div>
+            <div class="option">
+                <span class="option-text">السعادة</span>
+                <span class="icon">😊</span>
+            </div>
+            <div class="option">
+                <span class="option-text">الايجابية</span>
+                <span class="icon">😄</span>
+            </div>
+        </div>
+        
+        <p class="additional-info">بعدك ما حددتي هدفك؟ أخبرينا عنه لنساعدك</p>
+        <button class="action-button" id="action-button">أخبرينا عن هدفك</button>
+        
+        <br>
+        <a href="9 444.html" id="next-page-link"><button class="footer-button" id="next-button">متابعة</button></a>
+    </div>
+    <script>
+        const options = document.querySelectorAll('.option');
+        const nextButton = document.getElementById('next-button');
+        const nextPageLink = document.getElementById('next-page-link');
+        let selectedOption = null;
+
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                // Remove selected class from all options
+                options.forEach(opt => opt.classList.remove('selected'));
+                
+                // Add selected class to the clicked option
+                option.classList.add('selected');
+                
+                // Set the selected option
+                selectedOption = option;
+
+                // Activate the next button
+                nextButton.classList.add('active');
+                nextPageLink.style.pointerEvents = 'auto';
+            });
+        });
+
+        // Prevent navigation if no option is selected
+        nextButton.addEventListener('click', (event) => {
+            if (!selectedOption) {
+                event.preventDefault();
+                alert('يرجى اختيار هدف قبل المتابعة.');
+            }
+        });
+
+    </script>
+    <script>
+        const button = document.getElementById('action-button');
+
+        button.addEventListener('click', () => {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'custom-input';
+            input.placeholder = 'اكتبي هدفك هنا...';
+            button.parentNode.replaceChild(input, button);
+            input.focus();
+        });
+    </script>
+</body>
+</html>

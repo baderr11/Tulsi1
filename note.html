@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق تدوين الملاحظات</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        textarea {
+            width: 90%;
+            max-width: 500px;
+            height: 50vh;
+            max-height: 300px;
+            padding: 10px;
+            font-size: 16px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <textarea id="notepad" placeholder="اكتب ملاحظاتك هنا..."></textarea>
+    <button id="save">حفظ</button>
+    <script>
+        const notepad = document.getElementById('notepad');
+        const saveButton = document.getElementById('save');
+
+        saveButton.addEventListener('click', () => {
+            localStorage.setItem('notes', notepad.value);
+            alert('تم حفظ الملاحظات بنجاح');
+        });
+
+        window.onload = () => {
+            const savedNotes = localStorage.getItem('notes');
+            if (savedNotes) {
+                notepad.value = savedNotes;
+            }
+        };
+    </script>
+</body>
+</html>
