@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل حساب باستخدام رقم الهاتف</title>
+    <title>Tulsi</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -70,7 +70,7 @@
         .action-button:hover {
             opacity: 0.8;
         }
-       .action-button.grey {
+        .action-button.grey {
             background-color: #C0C0C0;
             background: rgba(0, 201, 255, 0.3);
             background: #ffffff61;
@@ -95,10 +95,6 @@
             font-size: 16px;
             color: white;
             transition: background 0.3s ease;
-            border-top-color: initial;
-            border-right-color: initial;
-            border-bottom-color: initial;
-            border-left-color: initial;
         }
 
         .social-button.facebook {
@@ -123,7 +119,8 @@
 
         a {
             font-style: normal;
-            text-decoration: blink;
+            text-decoration: none;
+            color: inherit;
         }
 
         a:visited {
@@ -140,15 +137,15 @@
         <form id="registrationForm">
             <div class="form-group">
                 <label for="phoneNumber">رقم الهاتف</label>
-                <input type="text" id="phoneNumber" class="form-control" value="+967">
+                <input type="text" id="phoneNumber" class="form-control" value="+967" required>
             </div>
             <div class="form-group">
                 <label for="firstName">الاسم الأول</label>
-                <input type="text" id="firstName" class="form-control" placeholder="ألأسم">
+                <input type="text" id="firstName" class="form-control" placeholder="ألأسم" required>
             </div>
-            <button type="submit" class="action-button blue"><a href="22.html">إنشاء حساب</button></a>
+            <button type="submit" class="action-button blue">إنشاء حساب</button>
         </form>
-        <button class="action-button grey"><a href="9 444.html">التسجيل بواسطة البريد الالكتروني</button></a>
+        <button class="action-button grey"><a href="9 444.html">التسجيل بواسطة البريد الالكتروني</a></button>
         <div class="or">أو</div>
         <div class="social-login">
             <button class="social-button facebook fa fa-facebook"></button>
@@ -166,11 +163,12 @@
             event.preventDefault();
             const phoneNumber = document.getElementById('phoneNumber').value;
             const firstName = document.getElementById('firstName').value;
-            if (!phoneNumber || !firstName) {
-                alert('Please fill in all fields.');
-                return;
+            if (phoneNumber && firstName) {
+                // بعد التحقق من المدخلات، انتقل إلى الصفحة الثانية
+                window.location.href = '22.html'; // استبدل '22.html' بالصفحة التي تريد الانتقال إليها
+            } else {
+                alert('يرجى ملء جميع الحقول.');
             }
-            alert('Form submitted:\nPhone Number: ' + phoneNumber + '\nFirst Name: ' + firstName);
         });
     </script>
 </body>
