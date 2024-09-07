@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة رسم متجاوبة</title>
+  <style>
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    h1 {
+      margin: 20px 0;
+      font-size: 24px;
+      color: #333;
+      text-align: center;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 700px;
+    }
+
+    .toolbar button, .toolbar input[type="color"], .toolbar input[type="range"] {
+      margin: 5px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .toolbar button {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .toolbar button:hover {
+      background-color: #0056b3;
+    }
+
+    .toolbar input[type="color"] {
+      padding: 5px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      cursor: pointer;
+    }
+
+    .toolbar input[type="range"] {
+      width: 120px;
+      cursor: pointer;
+    }
+
+    canvas {
+      border: 2px solid #333;
+      border-radius: 10px;
+      background-color: #fff;
+      cursor: crosshair;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 700px;
+      height: auto;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #888;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .toolbar {
+        flex-direction: row;
+        justify-content: space-around;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .toolbar {
+        flex-direction: column;
+      }
+      
+      .toolbar button, .toolbar input[type="color"], .toolbar input[type="range"] {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 20px;
+      }
+      
+      .toolbar {
+        padding: 10px;
+      }
+
+      .toolbar button, .toolbar input[type="color"], .toolbar input[type="range"] {
+        font-size: 12px;
+        padding: 8px;
+      }
+
+      canvas {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>لوحة الرسم المتجاوبة</h1>
+  
+  <div class="toolbar">
+    <button id="penButton">قلم</button>
+    <button id="eraserButton">ممحاة</button>
+    <input type="color" id="colorPicker" value="#000000" title="اختر لون القلم">
+    <label for="lineWidthSlider">حجم الخط:</label>
+    <input type="range" id="lineWidthSlider" min="1" max="20" value="2" title="حجم الخط">
+    <span id="lineWidthValue">2</span>px
+    <button id="saveButton">حفظ الرسم</button>
+  </div>
+
+  <canvas id="drawingCanvas" width="600" height="400"></canvas>
+
+  <footer>تم تطويرها من أجل تجربة رسم سلسة واحترافية</footer>
+
+  <script>
+    const canvas = document.getElementById('drawingCanvas');
+    const ctx = canvas.getContext('2d');
+    let drawing = false;
+    let currentColor = '#000000';
+    let lineWidth = 2;
+    let erasing = false;
+
+    // تحديث حجم الخط من شريط التمرير
+    const lineWidthSlider = document.getElementById('lineWidthSlider');
+    const lineWidthValue = document.getElementById('lineWidthValue');
+    
+    lineWidthSlider.addEventListener('input', function() {
+      lineWidth = this.value;
+      lineWidthValue.textContent = lineWidth; // تحديث النص الظاهر
+    });
+
+    // أدوات الرسم
+    document.getElementById('penButton').addEventListener('click', () => {
+      erasing = false;
+      ctx.globalCompositeOperation = 'source-over'; // عودة إلى وضع الرسم العادي
+      canvas.style.cursor = 'crosshair';
+    });
+
+    document.getElementById('eraserButton').addEventListener('click', () => {
+      erasing = true;
+      ctx.globalCompositeOperation = 'destination-out'; // وضع الممحاة
+      canvas.style.cursor = 'not-allowed';
+    });
+
+    document.getElementById('colorPicker').addEventListener('input', (event) => {
+      currentColor = event.target.value;
+      ctx.strokeStyle = currentColor;
+      erasing = false; // العودة إلى القلم بعد اختيار اللون
+      ctx.globalCompositeOperation = 'source-over'; // عودة إلى وضع الرسم العادي
+      canvas.style.cursor = 'crosshair';
+    });
+
+    // بدء الرسم
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', stopDrawing);
+    canvas.addEventListener('mouseleave', stopDrawing);
+
+    // لأجهزة اللمس
+    canvas.addEventListener('touchstart', startDrawing);
+    canvas.addEventListener('touchmove', draw);
+    canvas.addEventListener('touchend', stopDrawing);
+
+    function startDrawing(event) {
+      event.preventDefault();
+      drawing = true;
+      ctx.beginPath();
+      ctx.moveTo(getX(event), getY(event));
+    }
+
+    function draw(event) {
+      event.preventDefault();
+      if (!drawing) return;
+      
+      if (erasing) {
+        ctx.lineWidth = lineWidth; // حجم الممحاة
+      } else {
+        ctx.lineWidth = lineWidth; // حجم القلم
+        ctx.strokeStyle = currentColor;
+      }
+
+      ctx.lineTo(getX(event), getY(event));
+      ctx.stroke();
+    }
+
+    function stopDrawing(event) {
+      event.preventDefault();
+      drawing = false;
+      ctx.closePath();
+    }
+
+    function getX(event) {
+      return event.clientX ? event.clientX - canvas.offsetLeft : event.touches[0].clientX - canvas.offsetLeft;
+    }
+
+    function getY(event) {
+      return event.clientY ? event.clientY - canvas.offsetTop : event.touches[0].clientY - canvas.offsetTop;
+    }
+
+    // زر الحفظ
+    document.getElementById('saveButton').addEventListener('click', function() {
+      const dataURL = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = dataURL;
+      link.download = 'الرسم_الخاصة_بي.png';
+      link.click();
+    });
+  </script>
+
+</body>
+</html>
